@@ -15,19 +15,19 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _navigateToIntro();
-    // Timer(Duration(seconds: 2), () {
-    //   Navigator.pushReplacement(
-    //       context, MaterialPageRoute(builder: (context) => IntroScreen()));
-    // });
-  }
-
-  _navigateToIntro() async {
-    await Future.delayed(Duration(seconds: 2000), () {
+    // _navigateToIntro();
+    Timer(Duration(seconds: 2), () {
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => IntroScreen()));
     });
   }
+
+  // _navigateToIntro() async {
+  //   await Future.delayed(Duration(seconds: 2000), () {
+  //     Navigator.pushReplacement(
+  //         context, MaterialPageRoute(builder: (context) => IntroScreen()));
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
