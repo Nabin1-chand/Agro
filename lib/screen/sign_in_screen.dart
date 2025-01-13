@@ -1,20 +1,21 @@
-import 'package:agro_app/screen/sign_in_screen.dart';
 import 'package:agro_app/widget/custom_button.dart';
 import 'package:agro_app/widget/custom_text_field.dart';
 import 'package:flutter/material.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class SignInScreen extends StatefulWidget {
+  const SignInScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<SignInScreen> createState() => _SignInScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignInScreenState extends State<SignInScreen> {
   bool _rememberMe = false;
   @override
   Widget build(BuildContext context) {
     final TextEditingController _usernameController = TextEditingController();
+    final TextEditingController _emailController = TextEditingController();
+
     final TextEditingController _passwordController = TextEditingController();
     return Scaffold(
       appBar: AppBar(
@@ -69,7 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Text(
-                          'Welcome back',
+                          'Create your account',
                           style: const TextStyle(
                               fontSize: 24,
                               color: Colors.black,
@@ -90,6 +91,14 @@ class _LoginScreenState extends State<LoginScreen> {
                           icon: const Icon(Icons.person),
                           onChanged: (value) {},
                         ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        CustomTextField(
+                          controller: _emailController,
+                          icon: const Icon(Icons.email),
+                          onChanged: (value) {},
+                        ),
                         const SizedBox(
                           height: 30,
                         ),
@@ -103,39 +112,34 @@ class _LoginScreenState extends State<LoginScreen> {
                           height: 40,
                         ),
                         CustomButton(
-                            text: 'SIGN IN',
+                            text: 'REGISTER',
                             onPressed: () {},
                             width: MediaQuery.of(context).size.width),
                         SizedBox(
                           height: 20,
                         ),
-                        Row(
-                          children: [
-                            Checkbox(
-                              value: _rememberMe,
-                              onChanged: (bool? value) {
-                                setState(() {
-                                  _rememberMe = value ?? false;
-                                });
-                              },
+                        Row(children: [
+                          Checkbox(
+                            value: _rememberMe,
+                            onChanged: (bool? value) {
+                              setState(() {
+                                _rememberMe = value ?? false;
+                              });
+                            },
+                          ),
+                          Expanded(
+                            child: Text(
+                              "By tapping Sign Up your accept our terms and condition",
+                              style: TextStyle(color: Colors.black38),
                             ),
-                            Text(
-                                "By tapping Sign Up your accept our terms and condition"),
-                            Spacer(),
-                            Text(
-                              'Forget Password?',
-                              style: TextStyle(
-                                  decoration: TextDecoration.underline,
-                                  fontSize: 16),
-                            )
-                          ],
-                        ),
+                          ),
+                        ]),
                         SizedBox(
                           height: 10,
                         ),
                         Center(
                             child: Text(
-                          "Don't have an account",
+                          "Already have account",
                           style: TextStyle(fontSize: 18, color: Colors.black26),
                         )),
                         SizedBox(
@@ -143,14 +147,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         CustomButton(
                             backGroundColor: Colors.white,
-                            text: 'CREATE AN ACCOUNT',
+                            text: 'SIGN IN',
                             textColor: Color.fromARGB(255, 27, 96, 199),
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => SignInScreen()));
-                            },
+                            onPressed: () {},
                             width: MediaQuery.of(context).size.width)
                       ],
                     ),
