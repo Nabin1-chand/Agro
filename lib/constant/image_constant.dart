@@ -5,4 +5,6 @@ class ImageConstant {
   static const fishIcon = '$basePath/fish.png';
   static const fruitIcon = '$basePath/fruit.png';
   static const pizzaIcon = '$basePath/pizza.png';
+  static const wheatIcon = '$basePath/wheat.png';
+  static const vegetableIcon = '$basePath/vegetable.png';
 }

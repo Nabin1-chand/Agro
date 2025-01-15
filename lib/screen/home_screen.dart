@@ -1,3 +1,7 @@
+import 'package:agro_app/constant/image_constant.dart';
+import 'package:agro_app/screen/pages/fish_screen.dart';
+import 'package:agro_app/screen/pages/fruit_screen.dart';
+import 'package:agro_app/screen/pages/pizza_screen.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
@@ -24,7 +28,43 @@ class HomeScreen extends StatelessWidget {
       'dexription': 'on All Orders'
     },
   ];
-
+  final List<Map<String, dynamic>> categories = [
+    {
+      'title': 'Fruits',
+      'subtitle': '45 items',
+      'image': ImageConstant.fruitIcon,
+      'page': const FruitScreen(),
+      'color': const Color.fromARGB(255, 130, 170, 240),
+    },
+    {
+      'title': 'Fish',
+      'subtitle': '30 items',
+      'image': ImageConstant.fishIcon,
+      'page': const FishScreen(),
+      'color': const Color.fromARGB(255, 91, 233, 162),
+    },
+    {
+      'title': 'Pizza',
+      'subtitle': '12',
+      'image': ImageConstant.pizzaIcon,
+      'page': const PizzaScreen(),
+      'color': Colors.pinkAccent
+    },
+    {
+      'title': 'Vegetable',
+      'subtitle': '10',
+      'image': ImageConstant.vegetableIcon,
+      'page': const PizzaScreen(),
+      'color': const Color.fromARGB(255, 255, 156, 189)
+    },
+    {
+      'title': 'Wheat',
+      'subtitle': '3',
+      'image': ImageConstant.wheatIcon,
+      'page': const PizzaScreen(),
+      'color': const Color.fromARGB(255, 167, 139, 148)
+    },
+  ];
   final List<Color> containerColor = [
     const Color.fromARGB(255, 130, 170, 240),
     const Color.fromARGB(255, 91, 233, 162),
@@ -39,26 +79,26 @@ class HomeScreen extends StatelessWidget {
           automaticallyImplyLeading: false,
           backgroundColor: Colors.white),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               'Good Morning',
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
-            Text(
+            const Text(
               'Khagendra',
               style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             TextField(
-              style: TextStyle(
-                color: const Color(0xff020202),
+              style: const TextStyle(
+                color: Color(0xff020202),
                 fontSize: 20,
                 fontWeight: FontWeight.w400,
                 letterSpacing: 0.5,
@@ -70,7 +110,7 @@ class HomeScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(8),
                   borderSide: BorderSide.none,
                 ),
-                focusedBorder: OutlineInputBorder(
+                focusedBorder: const OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(15.0)),
                   borderSide: BorderSide(
                     width: 2.0,
@@ -88,7 +128,7 @@ class HomeScreen extends StatelessWidget {
                 prefixIconColor: Colors.black,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             CarouselSlider.builder(
@@ -97,7 +137,8 @@ class HomeScreen extends StatelessWidget {
                   return Container(
                     height: 170,
                     width: 320,
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 40),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                         color: containerColor[index]),
@@ -106,25 +147,25 @@ class HomeScreen extends StatelessWidget {
                       children: [
                         Text(
                           contentList[index]['title'] ?? "Not title",
-                          style: TextStyle(
+                          style: const TextStyle(
                               color: Colors.black, fontWeight: FontWeight.w600),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 5,
                         ),
                         Text(
                           contentList[index]['offer'] ?? "No offer",
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 20,
                               color: Colors.black,
                               fontWeight: FontWeight.w900),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 5,
                         ),
                         Text(
                           contentList[index]['description'] ?? "No description",
-                          style: TextStyle(
+                          style: const TextStyle(
                               color: Colors.black, fontWeight: FontWeight.w300),
                         ),
                       ],
@@ -136,7 +177,83 @@ class HomeScreen extends StatelessWidget {
                     enlargeCenterPage: true,
                     autoPlay: true,
                     aspectRatio: 16 / 9,
-                    viewportFraction: 0.8))
+                    viewportFraction: 0.8)),
+            const SizedBox(
+              height: 20,
+            ),
+            const Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Categories',
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.black),
+                ),
+                Icon(Icons.arrow_forward_ios),
+              ],
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            SizedBox(
+              height: 150,
+              child: ListView.separated(
+                padding: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+                scrollDirection: Axis.horizontal,
+                shrinkWrap: true,
+                itemCount: categories.length,
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                    onTap: () {
+                      final page = categories[index]['page'];
+                      if (page != null) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => page),
+                        );
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('Page not available')),
+                        );
+                      }
+                    },
+                    child: Container(
+                      width: 120,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 10),
+                      decoration: BoxDecoration(
+                          color: categories[index]['color']!,
+                          borderRadius: BorderRadius.circular(15)),
+                      child: Column(
+                        children: [
+                          Image.asset(
+                            categories[index]['image']!,
+                          ),
+                          Text(
+                            categories[index]['title'] ?? 'Unknown',
+                            style: const TextStyle(
+                                fontWeight: FontWeight.w700, fontSize: 20),
+                          ),
+                          Text(
+                            categories[index]['subtitle'] ?? 'No items',
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w300,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+                separatorBuilder: (BuildContext context, int index) {
+                  return const SizedBox(
+                    width: 10,
+                  );
+                },
+              ),
+            )
           ],
         ),
       ),
