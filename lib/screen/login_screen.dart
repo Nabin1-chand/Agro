@@ -1,3 +1,4 @@
+import 'package:agro_app/screen/home_screen.dart';
 import 'package:agro_app/screen/sign_in_screen.dart';
 import 'package:agro_app/widget/custom_button.dart';
 import 'package:agro_app/widget/custom_text_field.dart';
@@ -104,9 +105,14 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         CustomButton(
                             text: 'SIGN IN',
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => HomeScreen()));
+                            },
                             width: MediaQuery.of(context).size.width),
-                        SizedBox(
+                        const SizedBox(
                           height: 20,
                         ),
                         Row(
@@ -119,8 +125,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 });
                               },
                             ),
-                            Text(
-                                "By tapping Sign Up your accept our terms and condition"),
+                            Text('Keep Sign In'),
                             Spacer(),
                             Text(
                               'Forget Password?',
