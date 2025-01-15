@@ -91,7 +91,7 @@ class _SignInScreenState extends State<SignInScreen> {
                           icon: const Icon(Icons.person),
                           onChanged: (value) {},
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 20,
                         ),
                         CustomTextField(
@@ -115,7 +115,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             text: 'REGISTER',
                             onPressed: () {},
                             width: MediaQuery.of(context).size.width),
-                        SizedBox(
+                        const SizedBox(
                           height: 20,
                         ),
                         Row(children: [
@@ -127,28 +127,28 @@ class _SignInScreenState extends State<SignInScreen> {
                               });
                             },
                           ),
-                          Expanded(
+                          const Expanded(
                             child: Text(
                               "By tapping Sign Up your accept our terms and condition",
                               style: TextStyle(color: Colors.black38),
                             ),
                           ),
                         ]),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
-                        Center(
+                        const Center(
                             child: Text(
                           "Already have account",
                           style: TextStyle(fontSize: 18, color: Colors.black26),
                         )),
-                        SizedBox(
+                        const SizedBox(
                           height: 30,
                         ),
                         CustomButton(
                             backGroundColor: Colors.white,
                             text: 'SIGN IN',
-                            textColor: Color.fromARGB(255, 27, 96, 199),
+                            textColor: const Color.fromARGB(255, 27, 96, 199),
                             onPressed: () {},
                             width: MediaQuery.of(context).size.width)
                       ],
