@@ -6,12 +6,14 @@ class CustomTextField extends StatefulWidget {
   final ValueChanged<String>? onChanged;
   final Icon? suffixIcon;
   final bool isPassword;
+  final String? Function(String?)? validator;
   CustomTextField(
       {super.key,
       required this.icon,
       this.controller,
       this.onChanged,
       this.isPassword = false,
+      this.validator,
       this.suffixIcon});
 
   @override
@@ -23,7 +25,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
+      validator: widget.validator,
       controller: widget.controller,
       onChanged: widget.onChanged,
       obscureText: widget.isPassword ? !_isPasswordVisible : false,

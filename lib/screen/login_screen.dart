@@ -1,3 +1,4 @@
+import 'package:agro_app/constant/validator.dart';
 import 'package:agro_app/screen/home_screen.dart';
 import 'package:agro_app/screen/sign_in_screen.dart';
 import 'package:agro_app/widget/custom_button.dart';
@@ -13,10 +14,27 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   bool _rememberMe = false;
+  bool _isLoading = false;
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+  void _login() {
+    if (_formKey.currentState?.validate() ?? false) {
+      setState(() {
+        _isLoading = true;
+      });
+      Future.delayed(Duration(seconds: 1), () {
+        setState(() {
+          _isLoading = false;
+        });
+      });
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => HomeScreen()));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    final TextEditingController _usernameController = TextEditingController();
-    final TextEditingController _passwordController = TextEditingController();
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -86,77 +104,87 @@ class _LoginScreenState extends State<LoginScreen> {
                         const SizedBox(
                           height: 30,
                         ),
-                        CustomTextField(
-                          controller: _usernameController,
-                          icon: const Icon(Icons.person),
-                          onChanged: (value) {},
+                        Form(
+                          key: _formKey,
+                          child: Column(
+                            children: [
+                              CustomTextField(
+                                controller: _emailController,
+                                icon: const Icon(Icons.person),
+                                onChanged: (value) {},
+                                validator: emailValidator,
+                              ),
+                              const SizedBox(
+                                height: 30,
+                              ),
+                              CustomTextField(
+                                controller: _passwordController,
+                                icon: const Icon(Icons.lock),
+                                isPassword: true,
+                                onChanged: (value) {},
+                                validator: passwordValidator,
+                              ),
+                              const SizedBox(
+                                height: 40,
+                              ),
+                              _isLoading
+                                  ? Center(
+                                      child: CircularProgressIndicator(),
+                                    )
+                                  : CustomButton(
+                                      text: 'SIGN IN',
+                                      onPressed: _login,
+                                      width: MediaQuery.of(context).size.width),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              Row(
+                                children: [
+                                  Checkbox(
+                                    value: _rememberMe,
+                                    onChanged: (bool? value) {
+                                      setState(() {
+                                        _rememberMe = value ?? false;
+                                      });
+                                    },
+                                  ),
+                                  Text('Keep Sign In'),
+                                  Spacer(),
+                                  Text(
+                                    'Forget Password?',
+                                    style: TextStyle(
+                                        decoration: TextDecoration.underline,
+                                        fontSize: 16),
+                                  )
+                                ],
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Center(
+                                  child: Text(
+                                "Don't have an account",
+                                style: TextStyle(
+                                    fontSize: 18, color: Colors.black26),
+                              )),
+                              SizedBox(
+                                height: 30,
+                              ),
+                              CustomButton(
+                                  backGroundColor: Colors.white,
+                                  text: 'CREATE AN ACCOUNT',
+                                  textColor: Color.fromARGB(255, 27, 96, 199),
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                SignInScreen()));
+                                  },
+                                  width: MediaQuery.of(context).size.width)
+                            ],
+                          ),
                         ),
-                        const SizedBox(
-                          height: 30,
-                        ),
-                        CustomTextField(
-                          controller: _passwordController,
-                          icon: const Icon(Icons.lock),
-                          isPassword: true,
-                          onChanged: (value) {},
-                        ),
-                        const SizedBox(
-                          height: 40,
-                        ),
-                        CustomButton(
-                            text: 'SIGN IN',
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => HomeScreen()));
-                            },
-                            width: MediaQuery.of(context).size.width),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Row(
-                          children: [
-                            Checkbox(
-                              value: _rememberMe,
-                              onChanged: (bool? value) {
-                                setState(() {
-                                  _rememberMe = value ?? false;
-                                });
-                              },
-                            ),
-                            Text('Keep Sign In'),
-                            Spacer(),
-                            Text(
-                              'Forget Password?',
-                              style: TextStyle(
-                                  decoration: TextDecoration.underline,
-                                  fontSize: 16),
-                            )
-                          ],
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Center(
-                            child: Text(
-                          "Don't have an account",
-                          style: TextStyle(fontSize: 18, color: Colors.black26),
-                        )),
-                        SizedBox(
-                          height: 30,
-                        ),
-                        CustomButton(
-                            backGroundColor: Colors.white,
-                            text: 'CREATE AN ACCOUNT',
-                            textColor: Color.fromARGB(255, 27, 96, 199),
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => SignInScreen()));
-                            },
-                            width: MediaQuery.of(context).size.width)
                       ],
                     ),
                   ),
