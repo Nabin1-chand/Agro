@@ -7,7 +7,6 @@ import 'package:agro_app/screen/widget/rember_me_widget.dart';
 import 'package:agro_app/widget/custom_button.dart';
 import 'package:agro_app/widget/custom_text_field.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -22,43 +21,11 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  String? _message = '';
-
-  get http => null;
-
-  Future<void> login(String email, String password) async {
-    setState(() {
-      _isLoading = true;
-    });
-
-    try {
-      final response = await http.post(
-        Uri.parse('https://reqres.in/api/login'),
-        body: {
-          'email': email,
-          'password': password,
-        },
-      );
-
-      if (response.statusCode == 200) {
-        final responseBody = json.decode(response.body);
-        setState(() {
-          _message = 'Login successful. Token: ${responseBody['token']}';
-        });
-      } else {
-        setState(() {
-          _message = 'Failed to log in. Please check your credentials.';
-        });
-      }
-    } catch (error) {
-      setState(() {
-        _message = 'An error occurred. Please try again later.';
-      });
-    } finally {
-      setState(() {
-        _isLoading = false;
-      });
-    }
+  @override
+  void dispose() {
+    super.dispose();
+    _emailController.clear();
+    _passwordController.clear();
   }
 
   @override
@@ -163,8 +130,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                       text: 'SIGN IN',
                                       onPressed: () {
                                         if (_formKey.currentState!.validate()) {
-                                          login(_emailController.text,
-                                              _passwordController.text);
+                                          // login(_emailController.text,
+                                          //     _passwordController.text);
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      HomeScreen()));
                                         }
                                       },
                                       width: MediaQuery.of(context).size.width),
@@ -182,28 +154,29 @@ class _LoginScreenState extends State<LoginScreen> {
                                         },
                                         onForgetPassword: () {});
                                   }),
-                              SizedBox(
+                              const SizedBox(
                                 height: 10,
                               ),
-                              Center(
+                              const Center(
                                   child: Text(
                                 "Don't have an account",
                                 style: TextStyle(
                                     fontSize: 18, color: Colors.black26),
                               )),
-                              SizedBox(
+                              const SizedBox(
                                 height: 30,
                               ),
                               CustomButton(
                                   backGroundColor: Colors.white,
                                   text: 'CREATE AN ACCOUNT',
-                                  textColor: Color.fromARGB(255, 27, 96, 199),
+                                  textColor:
+                                      const Color.fromARGB(255, 27, 96, 199),
                                   onPressed: () {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                SignInScreen()));
+                                                const SignInScreen()));
                                   },
                                   width: MediaQuery.of(context).size.width)
                             ],
