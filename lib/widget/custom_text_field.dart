@@ -55,9 +55,10 @@ class _CustomTextFieldState extends State<CustomTextField> {
                     ? Icons.visibility
                     : Icons.visibility_off))
             : null,
-        contentPadding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 15.0),
+        contentPadding:
+            const EdgeInsets.symmetric(vertical: 20.0, horizontal: 15.0),
       ),
-      style: TextStyle(
+      style: const TextStyle(
         color: Colors.black,
         fontSize: 18.0,
       ),

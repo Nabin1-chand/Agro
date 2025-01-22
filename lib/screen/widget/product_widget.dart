@@ -17,6 +17,7 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<CardProvider>(builder: (context, cardProvider, child) {
+      int quantity = cardProvider.getQuantity(name);
       return Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
@@ -110,7 +111,9 @@ class ProductCard extends StatelessWidget {
                       color: Colors.green,
                       borderRadius: BorderRadius.circular(12)),
                   child: GestureDetector(
-                    onTap: cardProvider.decrement,
+                    onTap: () {
+                      cardProvider.decrement(name);
+                    },
                     child: const Icon(
                       Icons.remove,
                       color: Colors.white,
@@ -121,7 +124,7 @@ class ProductCard extends StatelessWidget {
                   width: 20,
                 ),
                 Text(
-                  '${cardProvider.quantity}',
+                  '$quantity',
                   style: TextStyle(fontSize: 18),
                 ),
                 const SizedBox(
@@ -134,7 +137,9 @@ class ProductCard extends StatelessWidget {
                       color: Colors.green,
                       borderRadius: BorderRadius.circular(12)),
                   child: GestureDetector(
-                    onTap: cardProvider.increment,
+                    onTap: () {
+                      cardProvider.increment(name);
+                    },
                     child: const Icon(
                       Icons.add,
                       color: Colors.white,

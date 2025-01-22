@@ -1,12 +1,18 @@
 import 'package:agro_app/provider/card_provider.dart';
+import 'package:agro_app/provider/signup_api_provider.dart';
 import 'package:agro_app/screen/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 void main() {
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => CardProvider(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => SignUpProvider()),
+        ChangeNotifierProvider(
+          create: (context) => CardProvider(),
+        ),
+      ],
       child: MyApp(),
     ),
   );

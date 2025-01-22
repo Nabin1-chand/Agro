@@ -1,9 +1,13 @@
+import 'dart:convert';
+
 import 'package:agro_app/constant/validator.dart';
 import 'package:agro_app/screen/home_screen.dart';
 import 'package:agro_app/screen/sign_in_screen.dart';
+import 'package:agro_app/screen/widget/rember_me_widget.dart';
 import 'package:agro_app/widget/custom_button.dart';
 import 'package:agro_app/widget/custom_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -13,23 +17,47 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  bool _rememberMe = false;
+  final ValueNotifier<bool> _rememberMeNotifier = ValueNotifier<bool>(false);
   bool _isLoading = false;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  void _login() {
-    if (_formKey.currentState?.validate() ?? false) {
-      setState(() {
-        _isLoading = true;
-      });
-      Future.delayed(Duration(seconds: 1), () {
+  String? _message = '';
+
+  get http => null;
+
+  Future<void> login(String email, String password) async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    try {
+      final response = await http.post(
+        Uri.parse('https://reqres.in/api/login'),
+        body: {
+          'email': email,
+          'password': password,
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final responseBody = json.decode(response.body);
         setState(() {
-          _isLoading = false;
+          _message = 'Login successful. Token: ${responseBody['token']}';
         });
+      } else {
+        setState(() {
+          _message = 'Failed to log in. Please check your credentials.';
+        });
+      }
+    } catch (error) {
+      setState(() {
+        _message = 'An error occurred. Please try again later.';
       });
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => HomeScreen()));
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
     }
   }
 
@@ -128,36 +156,32 @@ class _LoginScreenState extends State<LoginScreen> {
                                 height: 40,
                               ),
                               _isLoading
-                                  ? Center(
+                                  ? const Center(
                                       child: CircularProgressIndicator(),
                                     )
                                   : CustomButton(
                                       text: 'SIGN IN',
-                                      onPressed: _login,
+                                      onPressed: () {
+                                        if (_formKey.currentState!.validate()) {
+                                          login(_emailController.text,
+                                              _passwordController.text);
+                                        }
+                                      },
                                       width: MediaQuery.of(context).size.width),
                               const SizedBox(
                                 height: 20,
                               ),
-                              Row(
-                                children: [
-                                  Checkbox(
-                                    value: _rememberMe,
-                                    onChanged: (bool? value) {
-                                      setState(() {
-                                        _rememberMe = value ?? false;
-                                      });
-                                    },
-                                  ),
-                                  Text('Keep Sign In'),
-                                  Spacer(),
-                                  Text(
-                                    'Forget Password?',
-                                    style: TextStyle(
-                                        decoration: TextDecoration.underline,
-                                        fontSize: 16),
-                                  )
-                                ],
-                              ),
+                              ValueListenableBuilder<bool>(
+                                  valueListenable: _rememberMeNotifier,
+                                  builder: (context, rememberMe, child) {
+                                    return RememberMeRow(
+                                        remeberMe: rememberMe,
+                                        onRememberMeChanged: (value) {
+                                          _rememberMeNotifier.value =
+                                              value ?? false;
+                                        },
+                                        onForgetPassword: () {});
+                                  }),
                               SizedBox(
                                 height: 10,
                               ),

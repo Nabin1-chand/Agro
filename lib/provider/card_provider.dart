@@ -1,15 +1,22 @@
 import 'package:flutter/material.dart';
 
 class CardProvider with ChangeNotifier {
-  int quantity = 1;
-  void increment() {
-    quantity++;
+  final Map<String, int> _productQuantities = {};
+
+  int getQuantity(String productName) {
+    return _productQuantities[productName] ?? 1;
+  }
+
+  void increment(String productName) {
+    _productQuantities[productName] =
+        (_productQuantities[productName] ?? 1) + 1;
     notifyListeners();
   }
 
-  void decrement() {
-    if (quantity > 1) {
-      quantity--;
+  void decrement(String productName) {
+    if ((_productQuantities[productName] ?? 1) > 1) {
+      _productQuantities[productName] =
+          (_productQuantities[productName] ?? 1) - 1;
       notifyListeners();
     }
   }

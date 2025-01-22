@@ -20,7 +20,9 @@ class CustomButton extends StatelessWidget {
     return Container(
       width: width,
       child: TextButton(
-        onPressed: onPressed,
+        onPressed: () {
+          onPressed();
+        },
         style: TextButton.styleFrom(
           backgroundColor:
               backGroundColor ?? const Color.fromARGB(255, 27, 96, 199),
