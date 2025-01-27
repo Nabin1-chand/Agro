@@ -70,16 +70,16 @@ class ShopingCartScreen extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("\$${subtotal.toStringAsFixed(2)}"),
+                      Text("SubTotal"),
                       const SizedBox(
                         height: 5,
                       ),
-                      Text("\$${tax.toStringAsFixed(2)}"),
+                      Text("Tax(2%)"),
                       const SizedBox(
                         height: 5,
                       ),
                       Text(
-                        "\$${total.toStringAsFixed(2)}",
+                        "Total",
                         style: const TextStyle(fontWeight: FontWeight.w800),
                       )
                     ],
