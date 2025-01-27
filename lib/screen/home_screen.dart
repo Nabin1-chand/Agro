@@ -2,6 +2,7 @@ import 'package:agro_app/constant/image_constant.dart';
 import 'package:agro_app/screen/pages/fish_screen.dart';
 import 'package:agro_app/screen/pages/fruit_screen.dart';
 import 'package:agro_app/screen/pages/pizza_screen.dart';
+import 'package:agro_app/screen/search_product.dart';
 import 'package:agro_app/screen/widget/product_widget.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +27,7 @@ class HomeScreen extends StatelessWidget {
     {
       'title': 'Limited Time Offer',
       'offer': '10 % off',
-      'dexription': 'on All Orders'
+      'description': 'on All Orders'
     },
   ];
   final List<Map<String, dynamic>> categories = [
@@ -79,6 +80,8 @@ class HomeScreen extends StatelessWidget {
     {'name': 'Burger King', 'price': 35.00, 'showDiscount': true},
     {'name': 'Sushi World', 'price': 60.00, 'showDiscount': false},
     {'name': 'Taco Bell', 'price': 45.00, 'showDiscount': true},
+    {'name': 'Fresh Grapes', 'price': 35.00, 'soButton': true},
+    // {'name': 'Fresh Avocados', 'price': 35.00, 'soButton': true},
   ];
   @override
   Widget build(BuildContext context) {
@@ -106,36 +109,42 @@ class HomeScreen extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              TextField(
-                style: const TextStyle(
-                  color: Color(0xff020202),
-                  fontSize: 20,
-                  fontWeight: FontWeight.w400,
-                  letterSpacing: 0.5,
-                ),
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: const Color(0xfff1f1f1),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                    borderSide: BorderSide.none,
+              InkWell(
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => SearchProduct()));
+                },
+                child: TextField(
+                  style: const TextStyle(
+                    color: Color(0xff020202),
+                    fontSize: 20,
+                    fontWeight: FontWeight.w400,
+                    letterSpacing: 0.5,
                   ),
-                  focusedBorder: const OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(15.0)),
-                    borderSide: BorderSide(
-                      width: 2.0,
-                      color: Color.fromARGB(255, 202, 218, 235),
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: const Color(0xfff1f1f1),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      borderSide: BorderSide.none,
                     ),
+                    focusedBorder: const OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                      borderSide: BorderSide(
+                        width: 2.0,
+                        color: Color.fromARGB(255, 202, 218, 235),
+                      ),
+                    ),
+                    hintText: "Search beverages or foods",
+                    hintStyle: const TextStyle(
+                        color: Color(0xffb2b2b2),
+                        fontSize: 20,
+                        fontWeight: FontWeight.w400,
+                        letterSpacing: 0.5,
+                        decorationThickness: 6),
+                    prefixIcon: const Icon(Icons.search),
+                    prefixIconColor: Colors.black,
                   ),
-                  hintText: "Search beverages or foods",
-                  hintStyle: const TextStyle(
-                      color: Color(0xffb2b2b2),
-                      fontSize: 20,
-                      fontWeight: FontWeight.w400,
-                      letterSpacing: 0.5,
-                      decorationThickness: 6),
-                  prefixIcon: const Icon(Icons.search),
-                  prefixIconColor: Colors.black,
                 ),
               ),
               const SizedBox(
@@ -288,7 +297,8 @@ class HomeScreen extends StatelessWidget {
                   return ProductCard(
                     name: products[index]['name']!,
                     price: products[index]['price']!,
-                    showDiscount: products[index]['showDiscount']!,
+                    showDiscount: products[index]['showDiscount'] ?? false,
+                    soButton: products[index]['soButton'] ?? false,
                   );
                 },
               ),

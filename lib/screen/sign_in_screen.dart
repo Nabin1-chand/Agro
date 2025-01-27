@@ -23,81 +23,81 @@ class _SignInScreenState extends State<SignInScreen> {
   final TextEditingController _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   String? _message = '';
-  void loginForm(String email, String password) async {
-    setState(() {
-      _isLoading = true;
-    });
+  // void loginForm(String email, String password) async {
+  //   setState(() {
+  //     _isLoading = true;
+  //   });
 
-    try {
-      Response response =
-          await post(Uri.parse("https://reqres.in/api/register"), body: {
-        'email': email,
-        'password': password,
-      });
+  //   try {
+  //     Response response =
+  //         await post(Uri.parse("https://reqres.in/api/register"), body: {
+  //       'email': email,
+  //       'password': password,
+  //     });
 
-      if (response.statusCode == 200) {
-        final responseBody = json.decode(response.body);
-        setState(() {
-          _message = 'Registration successful. Token: ${responseBody['token']}';
-        });
-        print('Account created');
-        _showSuccessDialog(() {
-          Future.delayed(const Duration(seconds: 2), () {
-            Navigator.of(context).pop();
-            Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (context) => LoginScreen()));
-          });
-        });
-      } else {
-        print('Registration failed');
-        _showErrorDialog('Registration failed. Please try again.');
-      }
-    } catch (ex) {
-      print(ex.toString());
-      _showErrorDialog('An error occurred. Please try again later.');
-    } finally {
-      if (mounted) {
-        setState(() {
-          _isLoading = false;
-        });
-      }
-    }
-  }
+  //     if (response.statusCode == 200) {
+  //       final responseBody = json.decode(response.body);
+  //       setState(() {
+  //         _message = 'Registration successful. Token: ${responseBody['token']}';
+  //       });
+  //       print('Account created');
+  //       _showSuccessDialog(() {
+  //         Future.delayed(const Duration(seconds: 2), () {
+  //           Navigator.of(context).pop();
+  //           Navigator.pushReplacement(context,
+  //               MaterialPageRoute(builder: (context) => LoginScreen()));
+  //         });
+  //       });
+  //     } else {
+  //       print('Registration failed');
+  //       _showErrorDialog('Registration failed. Please try again.');
+  //     }
+  //   } catch (ex) {
+  //     print(ex.toString());
+  //     _showErrorDialog('An error occurred. Please try again later.');
+  //   } finally {
+  //     if (mounted) {
+  //       setState(() {
+  //         _isLoading = false;
+  //       });
+  //     }
+  //   }
+  // }
 
-  void _showSuccessDialog(VoidCallback onPressed) {
-    showDialog(
-      context: context,
-      barrierDismissible: false, // Prevent dismissing the dialog
-      builder: (context) {
-        return CustomDialog(
-          title: "Success",
-          message: "Your account has been created successfully!",
-          onPressed: onPressed,
-          isLoading: _isLoading,
-        );
-      },
-    );
-  }
+  // void _showSuccessDialog(VoidCallback onPressed) {
+  //   showDialog(
+  //     context: context,
+  //     barrierDismissible: false, // Prevent dismissing the dialog
+  //     builder: (context) {
+  //       return CustomDialog(
+  //         title: "Success",
+  //         message: "Your account has been created successfully!",
+  //         onPressed: onPressed,
+  //         isLoading: _isLoading,
+  //       );
+  //     },
+  //   );
+  // }
 
-  void _showErrorDialog(String message) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: const Text('Error'),
-          content: Text(message),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: const Text('OK'),
-            ),
-          ],
-        );
-      },
-    );
-  }
+  // void _showErrorDialog(String message) {
+  //   showDialog(
+  //     context: context,
+  //     builder: (context) {
+  //       return AlertDialog(
+  //         title: const Text('Error'),
+  //         content: Text(message),
+  //         actions: [
+  //           TextButton(
+  //             onPressed: () {
+  //               Navigator.of(context).pop();
+  //             },
+  //             child: const Text('OK'),
+  //           ),
+  //         ],
+  //       );
+  //     },
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -203,10 +203,16 @@ class _SignInScreenState extends State<SignInScreen> {
                           CustomButton(
                               text: 'REGISTER',
                               onPressed: () {
-                                if (_formKey.currentState?.validate() ??
-                                    false) {
-                                  loginForm(_emailController.text,
-                                      _passwordController.text);
+                                // if (_formKey.currentState?.validate() ??
+                                //     false) {
+                                //   loginForm(_emailController.text,
+                                //       _passwordController.text);
+                                // }
+                                if (_formKey.currentState!.validate()) {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => LoginScreen()));
                                 }
                               },
                               width: MediaQuery.of(context).size.width),

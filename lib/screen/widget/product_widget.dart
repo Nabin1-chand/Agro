@@ -1,4 +1,5 @@
 import 'package:agro_app/provider/card_provider.dart';
+import 'package:agro_app/screen/shopping_cart_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -6,12 +7,14 @@ class ProductCard extends StatelessWidget {
   final String name;
   final double price;
   final bool showDiscount;
+  final bool soButton;
 
   const ProductCard({
     Key? key,
     required this.name,
     required this.price,
     required this.showDiscount,
+    required this.soButton,
   }) : super(key: key);
 
   @override
@@ -101,53 +104,62 @@ class ProductCard extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-                  decoration: BoxDecoration(
-                      color: Colors.green,
-                      borderRadius: BorderRadius.circular(12)),
-                  child: GestureDetector(
-                    onTap: () {
-                      cardProvider.decrement(name);
+            soButton
+                ? ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ShopingCartScreen()));
                     },
-                    child: const Icon(
-                      Icons.remove,
-                      color: Colors.white,
-                    ),
+                    child: Text('Add to cart'))
+                : Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 8),
+                        decoration: BoxDecoration(
+                            color: Colors.green,
+                            borderRadius: BorderRadius.circular(12)),
+                        child: GestureDetector(
+                          onTap: () {
+                            cardProvider.decrement(name);
+                          },
+                          child: const Icon(
+                            Icons.remove,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      Text(
+                        '$quantity',
+                        style: TextStyle(fontSize: 18),
+                      ),
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 8),
+                        decoration: BoxDecoration(
+                            color: Colors.green,
+                            borderRadius: BorderRadius.circular(12)),
+                        child: GestureDetector(
+                          onTap: () {
+                            cardProvider.increment(name);
+                          },
+                          child: const Icon(
+                            Icons.add,
+                            color: Colors.white,
+                          ),
+                        ),
+                      )
+                    ],
                   ),
-                ),
-                const SizedBox(
-                  width: 20,
-                ),
-                Text(
-                  '$quantity',
-                  style: TextStyle(fontSize: 18),
-                ),
-                const SizedBox(
-                  width: 20,
-                ),
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-                  decoration: BoxDecoration(
-                      color: Colors.green,
-                      borderRadius: BorderRadius.circular(12)),
-                  child: GestureDetector(
-                    onTap: () {
-                      cardProvider.increment(name);
-                    },
-                    child: const Icon(
-                      Icons.add,
-                      color: Colors.white,
-                    ),
-                  ),
-                )
-              ],
-            ),
           ],
         ),
       );
