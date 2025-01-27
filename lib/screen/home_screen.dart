@@ -3,7 +3,9 @@ import 'package:agro_app/screen/pages/fish_screen.dart';
 import 'package:agro_app/screen/pages/fruit_screen.dart';
 import 'package:agro_app/screen/pages/pizza_screen.dart';
 import 'package:agro_app/screen/search_product.dart';
+import 'package:agro_app/screen/widget/categroies_widget.dart';
 import 'package:agro_app/screen/widget/product_widget.dart';
+import 'package:agro_app/screen/widget/silder_item_widget.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
@@ -176,56 +178,8 @@ class HomeScreen extends StatelessWidget {
               const SizedBox(
                 height: 15,
               ),
-              CarouselSlider.builder(
-                  itemCount: contentList.length,
-                  itemBuilder: (context, index, realIndex) {
-                    return Container(
-                      height: 170,
-                      width: 320,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 40),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: containerColor[index]),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            contentList[index]['title'] ?? "Not title",
-                            style: const TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w600),
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          Text(
-                            contentList[index]['offer'] ?? "No offer",
-                            style: const TextStyle(
-                                fontSize: 20,
-                                color: Colors.black,
-                                fontWeight: FontWeight.w900),
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          Text(
-                            contentList[index]['description'] ??
-                                "No description",
-                            style: const TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w300),
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                  options: CarouselOptions(
-                      height: 190,
-                      enlargeCenterPage: true,
-                      autoPlay: true,
-                      aspectRatio: 16 / 9,
-                      viewportFraction: 0.8)),
+              SliderItemWidget(
+                  contentList: contentList, containerColor: containerColor),
               const SizedBox(
                 height: 20,
               ),
@@ -310,25 +264,7 @@ class HomeScreen extends StatelessWidget {
               SizedBox(
                 height: 10,
               ),
-              GridView.builder(
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 20,
-                    mainAxisSpacing: 30,
-                    childAspectRatio: 9 / 15),
-                itemCount: products.length,
-                itemBuilder: (context, index) {
-                  return ProductCard(
-                    name: products[index]['name']!,
-                    price: products[index]['price']!,
-                    image: products[index]['image']!,
-                    showDiscount: products[index]['showDiscount'] ?? false,
-                    soButton: products[index]['soButton'] ?? false,
-                  );
-                },
-              ),
+              CategoriesItemWidget(products: products),
             ],
           ),
         ),
