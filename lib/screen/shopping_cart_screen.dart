@@ -5,19 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ShopingCartScreen extends StatelessWidget {
-  // final String name;
-  // final double price;
-  // final String image;
   const ShopingCartScreen({
     super.key,
-    // required this.name,
-    // required this.price,
-    // required this.image
   });
 
   @override
   Widget build(BuildContext context) {
     final cartItems = Provider.of<CardProvider>(context).cartItems;
+    final subtotal = Provider.of<CardProvider>(context).subTotal;
+    final tax = Provider.of<CardProvider>(context).tax;
+    final total = Provider.of<CardProvider>(context).total;
 
     return Scaffold(
       appBar: AppBar(
@@ -35,20 +32,18 @@ class ShopingCartScreen extends StatelessWidget {
           ],
         ),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-          child: Column(
-            children: [
-              ListView.separated(
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+        child: Column(
+          children: [
+            Expanded(
+              child: ListView.separated(
                 scrollDirection: Axis.vertical,
                 shrinkWrap: true,
                 itemCount: cartItems.length,
                 itemBuilder: (context, index) {
                   return ShoppingCartItemWidget(
-                    name: cartItems[index].name,
-                    price: cartItems[index].price,
-                    image: cartItems[index].image,
+                    index: index,
                   );
                 },
                 separatorBuilder: (BuildContext context, int index) {
@@ -63,71 +58,79 @@ class ShopingCartScreen extends StatelessWidget {
                   );
                 },
               ),
-              SizedBox(
-                height: 20,
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("\$${subtotal.toStringAsFixed(2)}"),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Text("\$${tax.toStringAsFixed(2)}"),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Text(
+                        "\$${total.toStringAsFixed(2)}",
+                        style: TextStyle(fontWeight: FontWeight.w800),
+                      )
+                    ],
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("\$${subtotal.toStringAsFixed(2)}"),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Text("\$${tax.toStringAsFixed(2)}"),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Text(
+                        "\$${total.toStringAsFixed(2)}",
+                        style: TextStyle(fontWeight: FontWeight.w800),
+                      )
+                    ],
+                  ),
+                ],
               ),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Subtotal'),
-                        Text('TAX(2%)'),
-                        Text(
-                          'Total',
-                          style: TextStyle(fontWeight: FontWeight.w800),
-                        )
-                      ],
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "\$ 4.0",
-                        ),
-                        Text(
-                          "\$ 4.0",
-                        ),
-                        Text(
-                          "\$ 4.0",
-                          style: TextStyle(fontWeight: FontWeight.w800),
-                        )
-                      ],
-                    ),
-                  ],
-                ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Container(
+              padding: EdgeInsets.all(15),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  color: const Color.fromARGB(255, 200, 233, 201)),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('Apply Promotion Code'),
+                  Text(
+                    '2 Proms',
+                    style: TextStyle(color: Colors.green),
+                  ),
+                ],
               ),
-              SizedBox(
-                height: 10,
-              ),
-              Container(
-                padding: EdgeInsets.all(15),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    color: const Color.fromARGB(255, 200, 233, 201)),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text('Apply Promotion Code'),
-                    Text(
-                      '2 Proms',
-                      style: TextStyle(color: Colors.green),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              CustomButton(
-                  text: 'CHECKOUT',
-                  onPressed: () {},
-                  width: MediaQuery.of(context).size.width)
-            ],
-          ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            CustomButton(
+                text: 'CHECKOUT',
+                onPressed: () {},
+                width: MediaQuery.of(context).size.width)
+          ],
         ),
       ),
     );

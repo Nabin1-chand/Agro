@@ -3,19 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ShoppingCartItemWidget extends StatelessWidget {
-  final String name;
-  final String image;
-  final double price;
-
+  final int index;
   const ShoppingCartItemWidget({
     super.key,
-    required this.name,
-    required this.image,
-    required this.price,
+    required this.index,
   });
 
   @override
   Widget build(BuildContext context) {
+    final cartItems = Provider.of<CardProvider>(context).cartItems[index];
+
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -26,14 +23,14 @@ class ShoppingCartItemWidget extends StatelessWidget {
             color: const Color.fromARGB(179, 124, 121, 121),
             borderRadius: BorderRadius.circular(20),
           ),
-          child: Image.asset(image),
+          child: Image.asset(cartItems.image),
         ),
         SizedBox(width: 20),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              name,
+              cartItems.name,
               style: TextStyle(
                 fontSize: 18,
               ),
@@ -47,7 +44,7 @@ class ShoppingCartItemWidget extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  "\$${price.toStringAsFixed(2)}",
+                  "\$${cartItems.price.toStringAsFixed(2)}",
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(
@@ -65,13 +62,18 @@ class ShoppingCartItemWidget extends StatelessWidget {
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(width: 1, color: Colors.black)),
-                  child: Icon(Icons.remove),
+                  child: InkWell(
+                      onTap: () {
+                        Provider.of<CardProvider>(context, listen: false)
+                            .decrementItemCart(index);
+                      },
+                      child: Icon(Icons.remove)),
                 ),
                 SizedBox(
                   width: 15,
                 ),
                 Text(
-                  '3',
+                  cartItems.quantity.toString(),
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
                 ),
                 SizedBox(
@@ -82,7 +84,12 @@ class ShoppingCartItemWidget extends StatelessWidget {
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(width: 1, color: Colors.black)),
-                  child: Icon(Icons.add),
+                  child: InkWell(
+                      onTap: () {
+                        Provider.of<CardProvider>(context, listen: false)
+                            .incrementItemCart(index);
+                      },
+                      child: Icon(Icons.add)),
                 ),
               ],
             ),

@@ -34,4 +34,28 @@ class CardProvider with ChangeNotifier {
     _cartItems.remove(item);
     notifyListeners();
   }
+
+  void incrementItemCart(
+    int index,
+  ) {
+    cartItems[index].quantity++;
+    notifyListeners();
+  }
+
+  void decrementItemCart(int index) {
+    if (cartItems[index].quantity > 0) {
+      cartItems[index].quantity--;
+    }
+  }
+
+  double get subTotal {
+    double total = 0.0;
+    for (var item in cartItems) {
+      total += item.price * item.quantity;
+    }
+    return total;
+  }
+
+  double get tax => subTotal * 0.02;
+  double get total => subTotal + tax;
 }
