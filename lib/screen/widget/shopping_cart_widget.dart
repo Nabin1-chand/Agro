@@ -25,40 +25,41 @@ class ShoppingCartItemWidget extends StatelessWidget {
           ),
           child: Image.asset(cartItems.image),
         ),
-        SizedBox(width: 20),
+        const SizedBox(width: 20),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               cartItems.name,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 18,
               ),
             ),
-            Text(
+            const Text(
               'Fruit',
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
             Row(
               children: [
                 Text(
                   "\$${cartItems.price.toStringAsFixed(2)}",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                      fontSize: 16, fontWeight: FontWeight.bold),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 3,
                 ),
-                Text(
+                const Text(
                   "\$6.0",
                   style: TextStyle(decoration: TextDecoration.lineThrough),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 50,
                 ),
                 Container(
-                  padding: EdgeInsets.all(8),
+                  padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(width: 1, color: Colors.black)),
@@ -67,20 +68,21 @@ class ShoppingCartItemWidget extends StatelessWidget {
                         Provider.of<CardProvider>(context, listen: false)
                             .decrementItemCart(index);
                       },
-                      child: Icon(Icons.remove)),
+                      child: const Icon(Icons.remove)),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 15,
                 ),
                 Text(
                   cartItems.quantity.toString(),
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                  style: const TextStyle(
+                      fontSize: 18, fontWeight: FontWeight.w500),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 15,
                 ),
                 Container(
-                  padding: EdgeInsets.all(8),
+                  padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(width: 1, color: Colors.black)),
@@ -89,7 +91,7 @@ class ShoppingCartItemWidget extends StatelessWidget {
                         Provider.of<CardProvider>(context, listen: false)
                             .incrementItemCart(index);
                       },
-                      child: Icon(Icons.add)),
+                      child: const Icon(Icons.add)),
                 ),
               ],
             ),

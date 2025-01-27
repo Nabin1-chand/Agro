@@ -12,4 +12,8 @@ class ImageConstant {
   static const freshGraphes = '$basePath/freshGraphes.png';
   static const pizzaHut = '$basePath/pizzaHut.png';
   static const tomato = '$basePath/tomato.png';
+  static const apple = '$basePath/apple.png';
+  static const freshOrange = '$basePath/freshOranage.png';
+  static const watermelon = '$basePath/watermelon.png';
+  static const redGrapes = '$basePath/redGrapes.png';
 }

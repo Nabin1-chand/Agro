@@ -20,7 +20,7 @@ class ShopingCartScreen extends StatelessWidget {
       appBar: AppBar(
         toolbarHeight: 90,
         backgroundColor: Colors.white,
-        title: Row(
+        title: const Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
@@ -49,17 +49,17 @@ class ShopingCartScreen extends StatelessWidget {
                 separatorBuilder: (BuildContext context, int index) {
                   return Column(
                     children: [
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       Divider(
                         color: Colors.grey.shade400,
                       ),
-                      SizedBox(height: 16),
+                      const SizedBox(height: 16),
                     ],
                   );
                 },
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Padding(
@@ -71,16 +71,16 @@ class ShopingCartScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text("\$${subtotal.toStringAsFixed(2)}"),
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
                       Text("\$${tax.toStringAsFixed(2)}"),
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
                       Text(
                         "\$${total.toStringAsFixed(2)}",
-                        style: TextStyle(fontWeight: FontWeight.w800),
+                        style: const TextStyle(fontWeight: FontWeight.w800),
                       )
                     ],
                   ),
@@ -88,31 +88,31 @@ class ShopingCartScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text("\$${subtotal.toStringAsFixed(2)}"),
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
                       Text("\$${tax.toStringAsFixed(2)}"),
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
                       Text(
                         "\$${total.toStringAsFixed(2)}",
-                        style: TextStyle(fontWeight: FontWeight.w800),
+                        style: const TextStyle(fontWeight: FontWeight.w800),
                       )
                     ],
                   ),
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Container(
-              padding: EdgeInsets.all(15),
+              padding: const EdgeInsets.all(15),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
                   color: const Color.fromARGB(255, 200, 233, 201)),
-              child: Row(
+              child: const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text('Apply Promotion Code'),
@@ -123,7 +123,7 @@ class ShopingCartScreen extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             CustomButton(

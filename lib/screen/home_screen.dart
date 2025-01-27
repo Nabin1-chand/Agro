@@ -37,7 +37,7 @@ class HomeScreen extends StatelessWidget {
       'title': 'Fruits',
       'subtitle': '45 items',
       'image': ImageConstant.fruitIcon,
-      'page': const FruitScreen(),
+      'page': FruitScreen(),
       'color': const Color.fromARGB(255, 130, 170, 240),
     },
     {
