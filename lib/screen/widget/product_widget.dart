@@ -1,3 +1,5 @@
+import 'package:agro_app/constant/image_constant.dart';
+import 'package:agro_app/model/cart_model.dart';
 import 'package:agro_app/provider/card_provider.dart';
 import 'package:agro_app/screen/shopping_cart_screen.dart';
 import 'package:flutter/material.dart';
@@ -8,14 +10,16 @@ class ProductCard extends StatelessWidget {
   final double price;
   final bool showDiscount;
   final bool soButton;
+  final String image;
 
-  const ProductCard({
-    Key? key,
-    required this.name,
-    required this.price,
-    required this.showDiscount,
-    required this.soButton,
-  }) : super(key: key);
+  const ProductCard(
+      {Key? key,
+      required this.name,
+      required this.price,
+      required this.showDiscount,
+      required this.soButton,
+      required this.image})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,13 +35,14 @@ class ProductCard extends StatelessWidget {
           children: [
             Container(
               width: double.infinity,
-              height: 80,
+              height: 170,
               decoration: BoxDecoration(
                 color: Colors.black.withOpacity(0.2),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Stack(
                 children: [
+                  Image.asset(image),
                   const Positioned(
                     top: 10,
                     left: 10,
@@ -107,6 +112,10 @@ class ProductCard extends StatelessWidget {
             soButton
                 ? ElevatedButton(
                     onPressed: () {
+                      final cartItem =
+                          CartItem(image: image, name: name, price: price);
+                      Provider.of<CardProvider>(context, listen: false)
+                          .addItem(cartItem);
                       Navigator.push(
                           context,
                           MaterialPageRoute(

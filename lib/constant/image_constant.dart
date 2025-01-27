@@ -7,4 +7,9 @@ class ImageConstant {
   static const pizzaIcon = '$basePath/pizza.png';
   static const wheatIcon = '$basePath/wheat.png';
   static const vegetableIcon = '$basePath/vegetable.png';
+  static const chickenVillage = '$basePath/chickenVillage.png';
+  static const burgerKing = '$basePath/burgerKing.png';
+  static const freshGraphes = '$basePath/freshGraphes.png';
+  static const pizzaHut = '$basePath/pizzaHut.png';
+  static const tomato = '$basePath/tomato.png';
 }

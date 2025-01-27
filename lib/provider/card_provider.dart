@@ -1,3 +1,4 @@
+import 'package:agro_app/model/cart_model.dart';
 import 'package:flutter/material.dart';
 
 class CardProvider with ChangeNotifier {
@@ -19,5 +20,18 @@ class CardProvider with ChangeNotifier {
           (_productQuantities[productName] ?? 1) - 1;
       notifyListeners();
     }
+  }
+
+  List<CartItem> _cartItems = [];
+  List<CartItem> get cartItems => _cartItems;
+
+  void addItem(CartItem item) {
+    _cartItems.add(item);
+    notifyListeners();
+  }
+
+  void removeItem(CartItem item) {
+    _cartItems.remove(item);
+    notifyListeners();
   }
 }

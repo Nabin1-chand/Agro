@@ -75,12 +75,38 @@ class HomeScreen extends StatelessWidget {
   ];
 
   final List<Map<String, dynamic>> products = [
-    {'name': 'Chicken Village', 'price': 50.00, 'showDiscount': true},
-    {'name': 'Pizza Hut', 'price': 40.00, 'showDiscount': false},
-    {'name': 'Burger King', 'price': 35.00, 'showDiscount': true},
-    {'name': 'Sushi World', 'price': 60.00, 'showDiscount': false},
-    {'name': 'Taco Bell', 'price': 45.00, 'showDiscount': true},
-    {'name': 'Fresh Grapes', 'price': 35.00, 'soButton': true},
+    {
+      'name': 'Chicken Village',
+      'price': 50.00,
+      'image': ImageConstant.chickenVillage,
+      'showDiscount': true
+    },
+    {
+      'name': 'Pizza Hut',
+      'price': 40.00,
+      'image': ImageConstant.pizzaHut,
+      'soButton': true,
+      'showDiscount': false
+    },
+    {
+      'name': 'Burger King',
+      'price': 35.00,
+      'image': ImageConstant.burgerKing,
+      'showDiscount': true,
+      'soButton': true
+    },
+    {
+      'name': 'Tomato',
+      'price': 20.00,
+      'image': ImageConstant.tomato,
+      'showDiscount': false
+    },
+    {
+      'name': 'Fresh Grapes',
+      'price': 35.00,
+      'image': ImageConstant.freshGraphes,
+      'soButton': true
+    },
     // {'name': 'Fresh Avocados', 'price': 35.00, 'soButton': true},
   ];
   @override
@@ -291,12 +317,13 @@ class HomeScreen extends StatelessWidget {
                     crossAxisCount: 2,
                     crossAxisSpacing: 20,
                     mainAxisSpacing: 30,
-                    childAspectRatio: 10 / 12),
+                    childAspectRatio: 9 / 15),
                 itemCount: products.length,
                 itemBuilder: (context, index) {
                   return ProductCard(
                     name: products[index]['name']!,
                     price: products[index]['price']!,
+                    image: products[index]['image']!,
                     showDiscount: products[index]['showDiscount'] ?? false,
                     soButton: products[index]['soButton'] ?? false,
                   );
