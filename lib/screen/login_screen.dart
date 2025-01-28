@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:agro_app/constant/validator.dart';
 import 'package:agro_app/screen/home_screen.dart';
+import 'package:agro_app/screen/navigation_screen.dart';
 import 'package:agro_app/screen/sign_in_screen.dart';
 import 'package:agro_app/screen/widget/rember_me_widget.dart';
 import 'package:agro_app/widget/custom_button.dart';
@@ -136,7 +137,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
-                                                      HomeScreen()));
+                                                      BottomNavigationScreen()));
                                         }
                                       },
                                       width: MediaQuery.of(context).size.width),

@@ -1,15 +1,24 @@
 import 'package:agro_app/constant/image_constant.dart';
+import 'package:agro_app/screen/fav_screen.dart';
+import 'package:agro_app/screen/pages/chicken_screen.dart';
 import 'package:agro_app/screen/pages/fish_screen.dart';
 import 'package:agro_app/screen/pages/fruit_screen.dart';
 import 'package:agro_app/screen/pages/pizza_screen.dart';
+import 'package:agro_app/screen/pages/wheat_screen.dart';
 import 'package:agro_app/screen/search_product.dart';
+import 'package:agro_app/screen/shopping_cart_screen.dart';
 import 'package:agro_app/screen/widget/categroies_widget.dart';
 import 'package:agro_app/screen/widget/product_widget.dart';
 import 'package:agro_app/screen/widget/silder_item_widget.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   final List<Map<String, String>> contentList = [
     {
       'title': 'Happy Weekend',
@@ -32,10 +41,11 @@ class HomeScreen extends StatelessWidget {
       'description': 'on All Orders'
     },
   ];
+
   final List<Map<String, dynamic>> categories = [
     {
       'title': 'Fruits',
-      'subtitle': '45 items',
+      'subtitle': '9 items',
       'image': ImageConstant.fruitIcon,
       'page': FruitScreen(),
       'color': const Color.fromARGB(255, 130, 170, 240),
@@ -44,7 +54,7 @@ class HomeScreen extends StatelessWidget {
       'title': 'Fish',
       'subtitle': '30 items',
       'image': ImageConstant.fishIcon,
-      'page': const FishScreen(),
+      'page': FishScreen(),
       'color': const Color.fromARGB(255, 91, 233, 162),
     },
     {
@@ -55,20 +65,21 @@ class HomeScreen extends StatelessWidget {
       'color': Colors.pinkAccent
     },
     {
-      'title': 'Vegetable',
+      'title': 'Chicken',
       'subtitle': '10',
       'image': ImageConstant.vegetableIcon,
-      'page': const PizzaScreen(),
+      'page': const ChickenScreen(),
       'color': const Color.fromARGB(255, 255, 156, 189)
     },
     {
       'title': 'Wheat',
       'subtitle': '3',
       'image': ImageConstant.wheatIcon,
-      'page': const PizzaScreen(),
+      'page': const WheatScreen(),
       'color': const Color.fromARGB(255, 167, 139, 148)
     },
   ];
+
   final List<Color> containerColor = [
     const Color.fromARGB(255, 130, 170, 240),
     const Color.fromARGB(255, 91, 233, 162),
@@ -111,6 +122,7 @@ class HomeScreen extends StatelessWidget {
     },
     // {'name': 'Fresh Avocados', 'price': 35.00, 'soButton': true},
   ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

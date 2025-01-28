@@ -16,4 +16,20 @@ class ImageConstant {
   static const freshOrange = '$basePath/freshOranage.png';
   static const watermelon = '$basePath/watermelon.png';
   static const redGrapes = '$basePath/redGrapes.png';
+  static const fishOne = '$basePath/fishOne.png';
+  static const chickenChilly = '$basePath/chillyChicken.png';
+  static const friedChicken = '$basePath/friedChicken.png';
+  static const fryFish = '$basePath/fryFish.png';
+  static const grilledFish = '$basePath/grilledFish.jpg';
+  static const legChicken = '$basePath/legChicken.png';
+  static const pizza5 = '$basePath/pizza5.png';
+  static const pizzaOne = '$basePath/pizzaOne.png';
+  static const pizzaTwo = '$basePath/pizzaTwo.png';
+  static const pizzaThree = '$basePath/pizzaTwo.png';
+  static const roastedChicken = '$basePath/roastedChicken.png';
+  static const singleFish = '$basePath/singleFish.png';
+  static const slicePizza = '$basePath/slicePizza.png';
+  static const wheat1 = '$basePath/wheat1.png';
+  static const wheat2 = '$basePath/wheat2.png';
+  static const wheat3 = '$basePath/wheat3.png';
 }
